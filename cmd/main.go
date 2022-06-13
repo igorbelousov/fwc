@@ -14,6 +14,6 @@ func main() {
 		fmt.Errorf("not loger init", err)
 	}
 
-	app := web.NewApp(handlers.Api(), log)
+	app := web.NewApp(handlers.Api(db), log)
 	app.Run()
 }
