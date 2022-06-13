@@ -2,7 +2,6 @@
 package database
 
 import (
-	"context"
 	"fmt"
 	"net/url"
 	"strings"
@@ -44,15 +43,15 @@ func Open(cfg Config) (*sqlx.DB, error) {
 
 // StatusCheck returns nil if it can successfully talk to the database. It
 // returns a non-nil error otherwise.
-func StatusCheck(ctx context.Context, db *sqlx.DB) error {
+func StatusCheck(db *sqlx.DB) error {
 
 	// Run a simple query to determine connectivity. The db has a "Ping" method
 	// but it can false-positive when it was previously able to talk to the
 	// database but the database has since gone away. Running this query forces a
 	// round trip to the database.
-	const q = `SELECT true`
+	const q = `SELECT TRUE`
 	var tmp bool
-	return db.QueryRowContext(ctx, q).Scan(&tmp)
+	return db.QueryRow(q).Scan(&tmp)
 }
 
 // Log provides a pretty print version of the query and parameters.

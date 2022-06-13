@@ -3,11 +3,11 @@ package handlers
 import (
 	"fmt"
 
-	"github.com/igorbelousov/foundation/database"
+	"github.com/jmoiron/sqlx"
 	routing "github.com/qiangxue/fasthttp-routing"
 )
 
-func Api(db *database.Database) *routing.Router {
+func Api(db *sqlx.DB) *routing.Router {
 	router := routing.New()
 
 	router.Get("/", func(c *routing.Context) error {

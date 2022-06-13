@@ -19,7 +19,8 @@ func NewApp(router *routing.Router, log *zap.SugaredLogger) *App {
 	return &App{router, log, nil, nil}
 }
 
-func (a *App) Run() {
-	a.log.Infow("start server on port 8080")
-	fasthttp.ListenAndServe(":8080", a.HandleRequest)
+func (a *App) Run(port string) {
+	a.log.Infof("Server startup on port : %s", port)
+	fasthttp.ListenAndServe(port, a.HandleRequest)
+
 }
