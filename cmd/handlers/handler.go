@@ -3,10 +3,11 @@ package handlers
 import (
 	"fmt"
 
+	"github.com/igorbelousov/foundation/database"
 	routing "github.com/qiangxue/fasthttp-routing"
 )
 
-func Api() *routing.Router {
+func Api(db *database.Database) *routing.Router {
 	router := routing.New()
 
 	router.Get("/", func(c *routing.Context) error {
