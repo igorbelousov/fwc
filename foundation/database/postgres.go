@@ -2,9 +2,7 @@
 package database
 
 import (
-	"fmt"
 	"net/url"
-	"strings"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq" // The database driver in use.
@@ -66,29 +64,4 @@ func (db *DatabaseIstance) StatusCheck() error {
 	const q = `SELECT TRUE`
 	var tmp bool
 	return db.QueryRow(q).Scan(&tmp)
-}
-
-// Log provides a pretty print version of the query and parameters.
-func Log(query string, args ...interface{}) string {
-	for i, arg := range args {
-		n := fmt.Sprintf("$%d", i+1)
-
-		var a string
-		switch v := arg.(type) {
-		case string:
-			a = fmt.Sprintf("%q", v)
-		case []byte:
-			a = string(v)
-		case []string:
-			a = strings.Join(v, ",")
-		default:
-			a = fmt.Sprintf("%v", v)
-		}
-
-		query = strings.Replace(query, n, a, 1)
-		query = strings.Replace(query, "\t", "", -1)
-		query = strings.Replace(query, "\n", " ", -1)
-	}
-
-	return query
 }

@@ -5,8 +5,9 @@ import (
 	"os"
 	"time"
 
+	"github.com/igorbelousov/fwc/internal/handlers"
+
 	"github.com/ardanlabs/conf"
-	"github.com/igorbelousov/fwc/cmd/handlers"
 	"github.com/igorbelousov/fwc/foundation/database"
 	"github.com/igorbelousov/fwc/foundation/web"
 )
@@ -56,7 +57,7 @@ func main() {
 	}
 	defer func() {
 		fmt.Printf("main: Database Stopping : %s", cfg.DB.Host)
-		database.DB.DB.Close()
+		database.DB.Close()
 	}()
 
 	log, err := web.InitLog("fast api core")

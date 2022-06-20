@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"fmt"
-
 	"github.com/fasthttp/router"
 	"github.com/igorbelousov/fwc/foundation/database"
 	"github.com/igorbelousov/fwc/foundation/web"
@@ -13,14 +11,9 @@ func Api() *router.Router {
 
 	r := router.New()
 
-	r.GET("/", readiness)
+	r.GET("/readiness", readiness)
 
 	return r
-}
-
-func Hello(ctx *fasthttp.RequestCtx) {
-	fmt.Fprintf(ctx, "Hello, world!")
-
 }
 
 func readiness(ctx *fasthttp.RequestCtx) {
@@ -28,7 +21,7 @@ func readiness(ctx *fasthttp.RequestCtx) {
 	status := "ok"
 	statusCode := fasthttp.StatusOK
 	if err := database.DB.StatusCheck(); err != nil {
-		status = "db not ready"
+		status = "DataBase not ready"
 		statusCode = fasthttp.StatusInternalServerError
 	}
 
