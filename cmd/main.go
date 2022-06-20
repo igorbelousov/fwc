@@ -43,7 +43,7 @@ func main() {
 	cfg.Version.SVN = build
 	cfg.Version.Desc = "Core for writing web services"
 
-	db, err := database.Open(database.Config{
+	err := database.Open(database.Config{
 		User:       cfg.DB.User,
 		Password:   cfg.DB.Password,
 		Host:       cfg.DB.Host,
@@ -56,16 +56,14 @@ func main() {
 	}
 	defer func() {
 		fmt.Printf("main: Database Stopping : %s", cfg.DB.Host)
-		db.Close()
+		database.DB.DB.Close()
 	}()
-
-	database.StatusCheck(db)
 
 	log, err := web.InitLog("fast api core")
 	if err != nil {
 		fmt.Errorf("loger init false ", err)
 	}
 
-	app := web.NewApp(handlers.Api(db), log)
+	app := web.NewApp(handlers.Api(), log, nil, nil)
 	app.Run(cfg.Web.APIHost)
 }

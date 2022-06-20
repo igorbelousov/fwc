@@ -19,8 +19,14 @@ type Config struct {
 	DisableTLS bool
 }
 
+type DatabaseIstance struct {
+	*sqlx.DB
+}
+
+var DB DatabaseIstance
+
 // Open knows how to open a database connection based on the configuration.
-func Open(cfg Config) (*sqlx.DB, error) {
+func Open(cfg Config) error {
 	sslMode := "require"
 	if cfg.DisableTLS {
 		sslMode = "disable"
@@ -38,12 +44,20 @@ func Open(cfg Config) (*sqlx.DB, error) {
 		RawQuery: q.Encode(),
 	}
 
-	return sqlx.Open("postgres", u.String())
+	db, err := sqlx.Open("postgres", u.String())
+	if err != nil {
+		return err
+	}
+
+	DB = DatabaseIstance{
+		db,
+	}
+	return nil
 }
 
 // StatusCheck returns nil if it can successfully talk to the database. It
 // returns a non-nil error otherwise.
-func StatusCheck(db *sqlx.DB) error {
+func (db *DatabaseIstance) StatusCheck() error {
 
 	// Run a simple query to determine connectivity. The db has a "Ping" method
 	// but it can false-positive when it was previously able to talk to the

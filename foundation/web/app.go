@@ -2,25 +2,32 @@ package web
 
 import (
 	"os"
+	"syscall"
 
-	routing "github.com/qiangxue/fasthttp-routing"
+	cors "github.com/AdhityaRamadhanus/fasthttpcors"
+	"github.com/fasthttp/router"
 	"github.com/valyala/fasthttp"
 	"go.uber.org/zap"
 )
 
 type App struct {
-	*routing.Router
+	*router.Router
 	log      *zap.SugaredLogger
 	shutdown chan os.Signal
 	mw       []Middleware
 }
 
-func NewApp(router *routing.Router, log *zap.SugaredLogger) *App {
-	return &App{router, log, nil, nil}
+func NewApp(router *router.Router, log *zap.SugaredLogger, shutdown chan os.Signal, mw ...Middleware) *App {
+	return &App{router, log, shutdown, mw}
+}
+
+func (a *App) SignalShutdown() {
+	a.shutdown <- syscall.SIGTERM
 }
 
 func (a *App) Run(port string) {
+	withCors := cors.DefaultHandler()
 	a.log.Infof("Server startup on port : %s", port)
-	fasthttp.ListenAndServe(port, a.HandleRequest)
+	a.log.Fatal(fasthttp.ListenAndServe(port, withCors.CorsMiddleware(a.Handler)))
 
 }
