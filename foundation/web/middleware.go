@@ -1,8 +1,10 @@
 package web
 
-import routing "github.com/qiangxue/fasthttp-routing"
+import (
+	"github.com/valyala/fasthttp"
+)
 
-type Handler func(c *routing.Context) error
+type Handler func(ctx *fasthttp.RequestCtx) error
 
 // Middleware is a function designed to run some code before and/or after
 // another Handler. It is designed to remove boilerplate or other concerns not

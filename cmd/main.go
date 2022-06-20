@@ -38,7 +38,7 @@ func main() {
 		}
 	}
 	if err := conf.Parse(os.Args[1:], "APP", &cfg); err != nil {
-		fmt.Errorf("Config parse Error %s", err)
+		fmt.Printf("Config parse Error %s", err)
 		os.Exit(1)
 	}
 	cfg.Version.SVN = build
@@ -52,7 +52,7 @@ func main() {
 		DisableTLS: cfg.DB.DisableTLS,
 	})
 	if err != nil {
-		fmt.Errorf("Connect to db", err)
+		fmt.Println("Connect to db", err)
 		os.Exit(1)
 	}
 	defer func() {
@@ -62,7 +62,7 @@ func main() {
 
 	log, err := web.InitLog("fast api core")
 	if err != nil {
-		fmt.Errorf("loger init false ", err)
+		fmt.Println("loger init false ", err)
 	}
 
 	app := web.NewApp(handlers.Api(), log, nil, nil)

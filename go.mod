@@ -14,7 +14,6 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/lib/pq v1.10.6
 	github.com/pkg/errors v0.8.1
-	github.com/qiangxue/fasthttp-routing v0.0.0-20160225050629-6ccdc2a18d87
 	github.com/valyala/fasthttp v1.37.0
 	go.uber.org/zap v1.21.0
 	gopkg.in/go-playground/validator.v9 v9.31.0
@@ -22,8 +21,6 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/go-ozzo/ozzo-routing v2.1.4+incompatible // indirect
-	github.com/golang/gddo v0.0.0-20210115222349-20d68f94ee1f // indirect
 	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
