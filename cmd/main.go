@@ -8,8 +8,8 @@ import (
 	"github.com/igorbelousov/fwc/internal/handlers"
 
 	"github.com/ardanlabs/conf"
-	"github.com/igorbelousov/fwc/foundation/database"
 	"github.com/igorbelousov/fwc/foundation/web"
+	"github.com/igorbelousov/fwc/internal/database"
 )
 
 var build = "develop"

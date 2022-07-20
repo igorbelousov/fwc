@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"github.com/fasthttp/router"
-	"github.com/igorbelousov/fwc/foundation/database"
 	"github.com/igorbelousov/fwc/foundation/web"
+	"github.com/igorbelousov/fwc/internal/database"
 	"github.com/valyala/fasthttp"
 )
 

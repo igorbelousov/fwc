@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/igorbelousov/fwc/foundation/database"
+	"github.com/igorbelousov/fwc/internal/database"
 	"github.com/igorbelousov/fwc/internal/schema"
 )
 
